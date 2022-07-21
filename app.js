@@ -20,8 +20,7 @@ app.use(express.static("public"));
 
 
 // MONGOOSE CONNECT
-mongoose.connect('mongodb://localhost:27017/', {
-    dbName: wikiDB,
+mongoose.connect('mongodb://localhost:27017/wikiDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true 
 }, err => err ? console.log(err) : console.log('Connected to database'));
