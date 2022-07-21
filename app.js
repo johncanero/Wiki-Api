@@ -26,8 +26,12 @@ mongoose.connect('mongodb://localhost:27017/', {
     useUnifiedTopology: true 
 }, err => err ? console.log(err) : console.log('Connected to database'));
 
-// MONGOOSE - ITEMS SCHEMA
 
+// MONGOOSE - ITEMS SCHEMA
+const postSchema = mongoose.Schema({
+    title: String,
+    content: String,
+});
 
 
 //TODO
