@@ -38,7 +38,7 @@ const Article = mongoose.model("Article", articleSchema);
 
 ///// ALL ARTICLES /////
 
-// EXPRESS - GET METHOD
+// EXPRESS - GET METHOD (REQUEST VERBS)
 app.get("/articles", function(req, res) {
     Article.find(function(err, foundArticles) {
         // console.log(foundArticles);
@@ -50,6 +50,32 @@ app.get("/articles", function(req, res) {
         }
        
     });
+});
+
+
+
+// EXPRESS - POST METHOD (REQUEST VERBS)
+app.post("/articles", function(req, res) {
+    // console.log(req.body.title);
+    // console.log(req.body.content);
+
+    const newArticle = new Article({
+        title: req.body.title,
+        content: req.body.content
+    });
+
+    newArticle.save(function(err) {
+        if(!err) {
+            res.send("Successfully added a new article.")
+        } else {
+            res.send(err);
+        }
+    });
+});
+
+// EXPRESS - DELETE METHOD (REQUEST VERBS)
+app.delete("/articles", function(req, res) {
+
 });
 
 
