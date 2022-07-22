@@ -60,10 +60,6 @@ app.route("/articles")
 })
 
 // EXPRESS - POST METHOD (REQUEST VERBS)
-
-
-
-
 .post(function(req, res) {
     // console.log(req.body.title);
     // console.log(req.body.content);
@@ -113,24 +109,25 @@ app.route("/articles/:articleTitle")
       }
     });
   })
-
-
-
-  .put(function(req, res) {
-    const articleTitle = req.params.articleTitle;
   
-    Article.findOneAndUpdate(
-      {title: articleTitle},
-      {title: req.body.title, content: req.body.content},
-      {overwrite: true},
-      function(err){
-        if (!err){
-          res.send("Successfully updated the content of the selected article.");
-        } else {
-          res.send(err);
-        }
-      });
+
+// PUT METHOD - UPDATING THE SPECIFIC ARTICLE
+  .put(function(req, res) {
+    Article.findOneAndUpdate (
+        {title: req.params.articleTitle},
+        {title: req.body.title, content: req.body.content},
+        {overwrite: true},
+        function(err){
+            if(!err) {
+                res.send("Successfully updated the article.")
+            } else {
+                res.send(err);
+            }
+        });
   })
+
+
+
 
 
 
