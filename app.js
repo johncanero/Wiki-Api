@@ -13,6 +13,7 @@ const MongoClient = require('mongodb').MongoClient
 // essentials: express
 const app = express();
 
+// template ejs
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,10 +28,12 @@ mongoose.connect('mongodb://localhost:27017/wikiDB', {
 
 
 // MONGOOSE - ITEMS SCHEMA
-const postSchema = mongoose.Schema({
+const articleSchema = mongoose.Schema({
     title: String,
     content: String,
 });
+
+const Article = mongoose.model("Article", articleSchema);
 
 
 //TODO
