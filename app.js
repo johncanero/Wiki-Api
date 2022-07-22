@@ -39,7 +39,16 @@ const Article = mongoose.model("Article", articleSchema);
 ///// ALL ARTICLES /////
 
 // EXPRESS - GET METHOD (REQUEST VERBS)
-app.get("/articles", function(req, res) {
+// EXPRESS - POST METHOD (REQUEST VERBS)
+// EXPRESS - DELETE METHOD (REQUEST VERBS)
+
+
+
+// EXPRESS - APP.ROUTE - SINGLE ROUT(CHAINED)
+app.route("/articles")
+
+
+.get(function(req, res) {
     Article.find(function(err, foundArticles) {
         // console.log(foundArticles);
         // "If there were no errors ="
@@ -50,12 +59,10 @@ app.get("/articles", function(req, res) {
         }
        
     });
-});
+})
 
 
-
-// EXPRESS - POST METHOD (REQUEST VERBS)
-app.post("/articles", function(req, res) {
+.post(function(req, res) {
     // console.log(req.body.title);
     // console.log(req.body.content);
 
@@ -71,10 +78,10 @@ app.post("/articles", function(req, res) {
             res.send(err);
         }
     });
-});
+})
 
-// EXPRESS - DELETE METHOD (REQUEST VERBS)
-app.delete("/articles", function(req, res) {
+
+.delete(function(req, res) {
     Article.deleteMany(function(err){
         if(!err){
           res.send("Successfully deleted all articles.");
@@ -82,7 +89,9 @@ app.delete("/articles", function(req, res) {
            res.send(err);
         }
       });
-}); 
+});
+
+
 
 
 
