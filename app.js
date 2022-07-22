@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
+const { response } = require("express");
 
 // MONGO CLIENT
 const MongoClient = require('mongodb').MongoClient
@@ -109,9 +110,9 @@ app.route("/articles/:articleTitle")
       }
     });
   })
-  
 
-// PUT METHOD - UPDATING THE SPECIFIC ARTICLE
+
+// PUT METHOD - UPDATING THE SPECIFIC WHOLE ARTICLE (IF NOT INCLUDED IN THE AMONG THE CONTENTS, ONLY THE CONTENTS YOU PROVIDED WOULD BE LISTED.)
   .put(function(req, res) {
     Article.findOneAndUpdate (
         {title: req.params.articleTitle},
@@ -125,6 +126,24 @@ app.route("/articles/:articleTitle")
             }
         });
   })
+
+// PATCH METHOD - UPDATING A SPECIFIC PORTION OF THE ARTICLE
+
+.patch(function(req, res){
+    const articleTitle = req.params.articleTitle;
+
+    Article.updateOne(
+        {title: articleTitle},
+        {$set: req.body},
+        function(err){
+            if(!err) {
+                res.send("Successfully updated the content of the selected article.");
+            } else {
+                res.send(err);
+            }
+        });
+});
+  
 
 
 
