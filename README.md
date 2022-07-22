@@ -1,4 +1,4 @@
-This is a Wiki-Api Project ⚪: Building your Own RESTful API guided by Angela Yu in her Web Development Bootcamp powered by Studio 3T of MongoDB and Postman.
+This is a Wiki-Api Project ⚪: Building your Own RESTful API guided by Angela Yu in her Web Development Bootcamp powered by Studio 3T of MongoDB and Postman. 🟠
 
 Project by John Cañero
 
