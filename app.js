@@ -36,18 +36,16 @@ const articleSchema = mongoose.Schema({
 const Article = mongoose.model("Article", articleSchema);
 
 
-///// ALL ARTICLES /////
-
-// EXPRESS - GET METHOD (REQUEST VERBS)
-// EXPRESS - POST METHOD (REQUEST VERBS)
-// EXPRESS - DELETE METHOD (REQUEST VERBS)
+///// REQUESTING TARGETING ALL ARTICLES /////
 
 
 
 // EXPRESS - APP.ROUTE - SINGLE ROUT(CHAINED)
+// REMOVE SEMICOLON WHEN CHAINING
 app.route("/articles")
 
 
+// EXPRESS - GET METHOD (REQUEST VERBS)
 .get(function(req, res) {
     Article.find(function(err, foundArticles) {
         // console.log(foundArticles);
@@ -60,6 +58,10 @@ app.route("/articles")
        
     });
 })
+
+// EXPRESS - POST METHOD (REQUEST VERBS)
+
+
 
 
 .post(function(req, res) {
@@ -81,6 +83,7 @@ app.route("/articles")
 })
 
 
+// EXPRESS - DELETE METHOD (REQUEST VERBS)
 .delete(function(req, res) {
     Article.deleteMany(function(err){
         if(!err){
@@ -90,6 +93,45 @@ app.route("/articles")
         }
       });
 });
+
+
+
+
+
+///// REQUESTING SPECIFIC / INDIVIDUAL ARTICLES /////
+
+
+// GET METHOD - FIND SPECIFIC ARTICLE
+app.route("/articles/:articleTitle")
+
+.get(function(req, res) {
+    Article.findOne({title: req.params.articleTitle}, function(err, foundArticle) {
+      if(foundArticle){
+        res.send(foundArticle);
+      }else{  
+        res.send("No articles matching that title was found.");
+      }
+    });
+  })
+
+
+
+  .put(function(req, res) {
+    const articleTitle = req.params.articleTitle;
+  
+    Article.findOneAndUpdate(
+      {title: articleTitle},
+      {title: req.body.title, content: req.body.content},
+      {overwrite: true},
+      function(err){
+        if (!err){
+          res.send("Successfully updated the content of the selected article.");
+        } else {
+          res.send(err);
+        }
+      });
+  })
+
 
 
 
