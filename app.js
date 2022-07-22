@@ -95,11 +95,13 @@ app.route("/articles")
 
 
 
+
 ///// REQUESTING SPECIFIC / INDIVIDUAL ARTICLES /////
 
 
 // GET METHOD - FIND SPECIFIC ARTICLE
 app.route("/articles/:articleTitle")
+
 
 .get(function(req, res) {
     Article.findOne({title: req.params.articleTitle}, function(err, foundArticle) {
@@ -114,8 +116,10 @@ app.route("/articles/:articleTitle")
 
 // PUT METHOD - UPDATING THE SPECIFIC WHOLE ARTICLE (IF NOT INCLUDED IN THE AMONG THE CONTENTS, ONLY THE CONTENTS YOU PROVIDED WOULD BE LISTED.)
   .put(function(req, res) {
+    const articleTitle = req.params.articleTitle;
+
     Article.findOneAndUpdate (
-        {title: req.params.articleTitle},
+        {title: articleTitle},
         {title: req.body.title, content: req.body.content},
         {overwrite: true},
         function(err){
@@ -142,15 +146,24 @@ app.route("/articles/:articleTitle")
                 res.send(err);
             }
         });
-});
-  
+})
 
+// DELETE METHOD 
 
+.delete(function(req, res) {
+    const articleTitle = req.params.articleTitle;
+    
+    Article.deleteOne(
+        {title: articleTitle}, function (err) {
+            if (!err){
+                res.send("Successfully deleted the content of the selected article.");
+            } else {
+                res.send(err);
+            }
+        });
+}); 
 
-
-
-
-
+ 
 
 
 
